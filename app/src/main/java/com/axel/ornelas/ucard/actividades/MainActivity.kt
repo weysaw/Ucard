@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
          */
         with(binding) {
             if (correo.text.toString() == "hola" && contrasena.text.toString() == "1234") {
-                val intent = Intent(this@MainActivity, ListaEstablecimientos::class.java)
+                val intent = Intent(this@MainActivity, ListaCategorias::class.java)
                 startActivity(intent)
             }
         }
