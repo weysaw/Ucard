@@ -1,5 +1,6 @@
 package com.axel.ornelas.ucard.clases
 
+import java.io.Serializable
 import java.util.*
 
 /**
@@ -7,11 +8,18 @@ import java.util.*
  */
 class Cupon(
     val id: Int,
-    val nombreEstablecimiento: String,
-    val promocion: String,
-    val fechaCreacion: Calendar,
-    val fechaVencimiento: Calendar,
-) {
+    val promocionImagen: Int,
+    val descripcion: String
+): Serializable {
+    // Obtiene la fecha actual
+    val fechaCreacion = Calendar.getInstance()
+    val fechaVencimiento = fechaCreacion.clone() as Calendar
+
+    init {
+        // Obtiene la fecha de vencimiento
+        fechaVencimiento.add(Calendar.MONTH, 1)
+    }
+
     fun verificarValidezCupon(): Boolean {
         val fechaActual = Calendar.getInstance()
         return if (fechaVencimiento <= fechaActual)
