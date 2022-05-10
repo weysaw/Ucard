@@ -9,11 +9,10 @@ import java.util.*
 class Cupon(
     val id: Int,
     val promocionImagen: Int,
-    val descripcion: String
+    val descripcion: String,
+    val fechaCreacion: Calendar = Calendar.getInstance(),
+    val fechaVencimiento: Calendar = fechaCreacion.clone() as Calendar
 ): Serializable {
-    // Obtiene la fecha actual
-    val fechaCreacion = Calendar.getInstance()
-    val fechaVencimiento = fechaCreacion.clone() as Calendar
 
     init {
         // Obtiene la fecha de vencimiento
