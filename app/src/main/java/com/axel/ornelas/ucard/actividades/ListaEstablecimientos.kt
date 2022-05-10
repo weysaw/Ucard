@@ -7,56 +7,39 @@ import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import com.axel.ornelas.ucard.adaptadores.EstablecimientosAdaptador
 import com.axel.ornelas.ucard.clases.Establecimiento
+import com.axel.ornelas.ucard.clases.ManejoDeDatos
 import com.axel.ornelas.ucard.databinding.ActivityListaEstablecimientosBinding
 
 class ListaEstablecimientos : AppCompatActivity() {
 
     private lateinit var binding: ActivityListaEstablecimientosBinding
-    private val establecimientos = arrayListOf<Establecimiento>()
+    private lateinit var establecimientos: ArrayList<Establecimiento>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityListaEstablecimientosBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        //Obtiene la categoria y la coloca en el titulo
         val categoria = intent.getStringExtra(PARAM1) ?: return finish()
-        /**
-         * De mientras coloco esto para obtener el local
-         */
-        if (categoria.equals("Restaurantes", true)) {
-            val fotos = arrayListOf<Int>(
-                obtenerImagen("establecimiento_senaii_1"),
-                obtenerImagen("establecimiento_senaii_2")
-            )
-            val logo = obtenerImagen("establecimiento_senaii_logo")
-            val establecimiento = Establecimiento(
-                "Sen - Aii: Ramen House",
-                "Av perrona",
-                "Restaurantes",
-                logo,
-                fotos
-            )
-            val nuevaPromocion = obtenerImagen("cupon_treinta")
-            establecimiento.generarNuevoCupon(nuevaPromocion, "30% de descuento")
-            establecimientos.add(establecimiento)
-            val establecimientosAdaptador = EstablecimientosAdaptador(establecimientos)
-            establecimientosAdaptador.onClickListener = View.OnClickListener { v ->
-                val pos = binding.listaEstablecimientos.getChildAdapterPosition(v)
-                val intent = Intent(this, MostrarInfoEstablecimiento::class.java)
-                val establecimientoMandar = establecimientos[pos]
-                println(establecimientoMandar.nombre)
-                intent.putExtra("establecimiento", establecimientoMandar)
-                startActivity(intent)
-            }
-            binding.listaEstablecimientos.layoutManager = GridLayoutManager(applicationContext, 2)
-            binding.listaEstablecimientos.adapter = establecimientosAdaptador
+        binding.tipoEstablecimiento.text = categoria
+
+        // Obtiene los datos del establacimiento por medio del manejador de datos
+        val manejadorDeDatos = ManejoDeDatos(applicationContext, resources, packageName, assets)
+        establecimientos = manejadorDeDatos.obtenerEstablecimientos()
+
+        // Crea el adaptador y coloca la acción al presionarlo
+        val establecimientosAdaptador = EstablecimientosAdaptador(establecimientos)
+        establecimientosAdaptador.onClickListener = View.OnClickListener { v ->
+            // Obtiene la posición en el recycler view del establecimiento presionado
+            val pos = binding.listaEstablecimientos.getChildAdapterPosition(v)
+            val intent = Intent(this, MostrarInfoEstablecimiento::class.java)
+            // Coloca el establecimiento presionado
+            intent.putExtra("establecimiento", establecimientos[pos])
+            startActivity(intent)
         }
-
+        // Coloca el layout y el adaptador
+        binding.listaEstablecimientos.layoutManager = GridLayoutManager(applicationContext, 2)
+        binding.listaEstablecimientos.adapter = establecimientosAdaptador
     }
 
-    /**
-     * Obtiene la imagen del drawable
-     */
-    fun obtenerImagen(imageName: String?): Int {
-        return resources.getIdentifier(imageName, "drawable", packageName)
-    }
 }
