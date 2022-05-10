@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.axel.ornelas.ucard" >
+    package="com.axel.ornelas.ucard">
 
     <application
         android:allowBackup="true"
@@ -8,13 +8,22 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Ucard" >
+        android:theme="@style/Theme.Ucard">
+        <activity
+            android:name=".actividades.MostrarCupon"
+            android:exported="false" />
+        <activity
+            android:name=".actividades.MostrarInfoEstablecimiento"
+            android:exported="false" />
         <activity
             android:name=".actividades.ListaEstablecimientos"
             android:exported="false" />
         <activity
+            android:name=".actividades.ListaCategorias"
+            android:exported="false" />
+        <activity
             android:name=".actividades.MainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
