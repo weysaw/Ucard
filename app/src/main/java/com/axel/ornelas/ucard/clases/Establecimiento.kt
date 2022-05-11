@@ -4,6 +4,7 @@ import java.io.Serializable
 import kotlin.collections.ArrayList
 
 class Establecimiento(
+    val id: Int,
     val nombre: String,
     val direccion: String,
     val categoria: String,
@@ -18,7 +19,7 @@ class Establecimiento(
      */
     fun generarNuevoCupon(promocionImagen: Int, promocion: String) {
         cantCuponesCreados++
-        val nuevoCupon = Cupon(cantCuponesCreados, promocionImagen, promocion)
+        val nuevoCupon = Cupon(cantCuponesCreados, id, promocionImagen, promocion)
         cupones += nuevoCupon
     }
 }
