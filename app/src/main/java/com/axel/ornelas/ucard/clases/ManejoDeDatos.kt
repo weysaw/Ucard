@@ -75,11 +75,16 @@ class ManejoDeDatos(
         // Se crea los datos por defecto, esto se debe de cambiar con una llamada a una base de datos
         assets.open("cuentas.txt").bufferedReader().forEachLine {
             val datos = it.split("|")
-            val tipoCuenta = (datos[4] == "cliente")
+            val tipo = datos[4]
+            val tipoCuenta = (tipo == "cliente")
+            val id = datos[0].toInt();
+            val nombre = datos[1];
+            val correo = datos[2]
+            val contrasena = datos[3]
             cuentas += if (tipoCuenta)
-                CuentaCliente(datos[0].toInt(), datos[1], datos[2], datos[3])
+                CuentaCliente(id, nombre, correo, contrasena)
             else
-                Cuenta(datos[0].toInt(), datos[1], datos[2], datos[3])
+                Cuenta(id, nombre, correo, contrasena)
         }
         guardarCuentas(cuentas)
         return cuentas
@@ -94,18 +99,22 @@ class ManejoDeDatos(
         assets.open("establecimientos.txt").bufferedReader().forEachLine {
             val datos = it.split("|")
             val idEstablecimiento = datos[0].toInt()
-            val fotos = arrayListOf(
-                obtenerImagen(datos[1]),
-                obtenerImagen(datos[2])
-            )
-            val logo = obtenerImagen(datos[3])
-            // Nombre = 4, direccion = 5, categoria = 6
+            val cantFotos = datos[1].toInt()
+            var posFinal = 1 + cantFotos
+            val fotos = arrayListOf<Int>()
+            for (i in 2..posFinal) {
+                fotos += obtenerImagen(datos[i])
+            }
+            val logo = obtenerImagen(datos[posFinal + 1])
+            val nombre = datos[posFinal + 2] ; val direccion = datos[posFinal + 3]
+            val categoria = datos[posFinal + 4]
             val establecimiento =
-                Establecimiento(idEstablecimiento, datos[4], datos[5], datos[6], logo, fotos)
-            val cantCupones = datos[7].toInt()
-            val pos = 8
+                Establecimiento(idEstablecimiento, nombre, direccion, categoria, logo, fotos)
+            val cantCupones = datos[posFinal + 5].toInt()
+            val pos = posFinal + 6
+            posFinal = pos + cantCupones
             // Recorre la cantidad de cupones y coloca la descripcion de cada uno
-            for (i in pos until pos + cantCupones) {
+            for (i in pos until posFinal) {
                 val texto = datos[i]
                 val nuevaPromocion = obtenerImagen("cupon_$texto")
                 val promocion = when (texto) {
