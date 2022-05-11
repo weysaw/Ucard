@@ -20,14 +20,13 @@ class MostrarCupon : AppCompatActivity() {
         binding = ActivityMostrarCuponBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val cupon = intent.getSerializableExtra("cupon") as Cupon
-
         val width: Int
         val height: Int
+        // Verifica el tamaño de la pantalla para que el qr no sea demasiado grande
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val tamano = windowManager.currentWindowMetrics.bounds
             width = tamano.width()
             height = tamano.height()
-            println("XD")
         } else {
             val display = windowManager.defaultDisplay
             val point = Point()
@@ -37,13 +36,13 @@ class MostrarCupon : AppCompatActivity() {
         }
         var dimen = if (width < height) width else height
         dimen = dimen * 3 / 4
-
+        //Codifica el qr con la descripcion del cupon
         val qrgEncoder = QRGEncoder(cupon.descripcion, null, QRGContents.Type.TEXT, dimen)
         try {
             val bitmap = qrgEncoder.encodeAsBitmap()
             binding.QR.setImageBitmap(bitmap)
         } catch (e: WriterException) {
-            Log.e("Tag", e.toString())
+            println(e.toString())
         }
     }
 }
