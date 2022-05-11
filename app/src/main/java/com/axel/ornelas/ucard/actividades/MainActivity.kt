@@ -46,11 +46,15 @@ class MainActivity : AppCompatActivity() {
                         putExtra("nombreCuenta", cuentaCliente.nombre)
                         putExtra("idCuenta", cuentaCliente.id)
                     }
+                    binding.correo.text.clear()
+                    binding.contrasena.text.clear()
                     startActivity(intentUsuario)
                 } catch (e: ClassCastException) { // El error indica que no es una clase de cliente
                     val intentEstablecimiento =
                         Intent(this@MainActivity, MenuPrincipalEstablecimiento::class.java)
                     intentEstablecimiento.putExtra("nombre", cuenta.nombre)
+                    binding.correo.text.clear()
+                    binding.contrasena.text.clear()
                     startActivity(intentEstablecimiento)
                 }
             } catch (e: Exception) {
