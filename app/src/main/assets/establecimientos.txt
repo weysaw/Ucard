@@ -1,2 +1,2 @@
-establecimiento_senaii_1|establecimiento_senaii_2|establecimiento_senaii_logo|Sen - Aii: Ramen House|Av perrona|Restaurantes|3|dosxuno|cincuenta|treinta
-establecimiento_golden_logo|establecimiento_golden_1|establecimiento_golden_2|Golden Island|Av lorem|Restaurantes|3|dosxuno|cincuenta|treinta
+1|establecimiento_senaii_1|establecimiento_senaii_2|establecimiento_senaii_logo|Sen - Aii: Ramen House|Av perrona|Restaurantes|3|dosxuno|cincuenta|treinta
+2|establecimiento_golden_1|establecimiento_golden_2|establecimiento_golden_logo|Golden Island|Av lorem|Restaurantes|3|dosxuno|cincuenta|treinta
