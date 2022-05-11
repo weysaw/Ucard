@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.axel.ornelas.ucard.adaptadores.CuponesAdaptador
 import com.axel.ornelas.ucard.clases.Establecimiento
+import com.axel.ornelas.ucard.clases.ManejoDeDatos
 import com.axel.ornelas.ucard.databinding.ActivityMostrarInfoEstablecimientoBinding
 import com.bumptech.glide.Glide
 
@@ -22,8 +23,13 @@ class MostrarInfoEstablecimiento : AppCompatActivity() {
             .load(establecimiento.logo)
             .fitCenter()
             .into(binding.logoEstablecimiento)
-        val cuponesAdaptador = CuponesAdaptador(establecimiento.cupones)
+        val idCuenta = intent.getIntExtra("idCuenta", -1)
+        if (idCuenta == -1)
+            finish()
+        val manejoDeDatos = ManejoDeDatos(applicationContext, resources, packageName, assets)
+        val cuponesAdaptador = CuponesAdaptador(establecimiento.cupones, idCuenta, manejoDeDatos)
         binding.listaCupones.layoutManager = LinearLayoutManager(applicationContext)
         binding.listaCupones.adapter = cuponesAdaptador
+
     }
 }
