@@ -1,2 +1,6 @@
-1|establecimiento_senaii_1|establecimiento_senaii_2|establecimiento_senaii_logo|Sen - Aii: Ramen House|Av perrona|Restaurantes|3|dosxuno|cincuenta|treinta
-2|establecimiento_golden_1|establecimiento_golden_2|establecimiento_golden_logo|Golden Island|Av lorem|Restaurantes|3|dosxuno|cincuenta|treinta
+1|2|establecimiento_senaii_1|establecimiento_senaii_2|establecimiento_senaii_logo|Sen - Aii: Ramen House|Av perrona|Restaurantes|3|dosxuno|cincuenta|treinta
+2|2|establecimiento_golden_1|establecimiento_golden_2|establecimiento_golden_logo|Golden Island|Av lorem|Restaurantes|3|dosxuno|cincuenta|treinta
+3|3|establecimiento_alien_1|establecimiento_alien_2|establecimiento_alien_3|establecimiento_alien_logo|Alien Barber Shop|Av ipsum|Estéticas|2|cincuenta|treinta
+4|2|establecimiento_drnorma_1|establecimiento_drnorma_2|establecimiento_drnorma_logo|Consultorio Dental Dra. Norma Alicia Reyes Reyes|Av dolore|Consultorios|1|cincuenta
+5|2|establecimiento_dentalcare_1|establecimiento_dentalcare_2|establecimiento_dentalcare_logo|GS Dental Care|Av xd|Consultorio|1|cincuenta
+6|2|establecimiento_decor_1|establecimiento_decor_2|establecimiento_decor_logo|Decor Home|Av aa|Diseño|1|cincuenta
