@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ucard">
         <activity
+            android:name=".actividades.MenuPrincipalEstablecimiento"
+            android:exported="false" />
+        <activity
             android:name=".actividades.MostrarCupon"
             android:exported="false" />
         <activity
