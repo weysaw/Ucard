@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Ucard</string>
     <string name="correo_uabc">Bienvenido a Ucard</string>
+    <string name="escanear_qr">Escanear QR</string>
 </resources>
