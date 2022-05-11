@@ -3,7 +3,8 @@
     <string name="correo_uabc">Bienvenido a Ucard</string>
     <string name="escanear_qr">Escanear QR</string>
     <string name="bienvenido">¡Bienvenido!</string>
-    <string name="correo">correo</string>
+    <string name="correo">correo: @uabc.edu.mx</string>
     <string name="contrase_a">contraseña</string>
     <string name="iniciar_sesion">Iniciar Sesion</string>
+    <string name="guarde_este_c_digo_qr">Guarde este código QR</string>
 </resources>
