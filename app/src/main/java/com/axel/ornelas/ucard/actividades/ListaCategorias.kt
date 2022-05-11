@@ -39,7 +39,10 @@ class ListaCategorias : AppCompatActivity() {
             val pos = binding.listaCategoria.getChildAdapterPosition(v)
             val categoria = categorias[pos].tipo
             val intent = Intent(this, ListaEstablecimientos::class.java)
-            intent.putExtra(PARAM1, categoria)
+            with(intent) {
+                putExtra("idCuenta", idCuenta)
+                putExtra(PARAM1, categoria)
+            }
             startActivity(intent)
         }
         binding.listaCategoria.adapter = categoriasAdaptador
