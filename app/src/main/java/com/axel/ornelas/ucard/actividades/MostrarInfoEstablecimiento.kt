@@ -31,7 +31,12 @@ class MostrarInfoEstablecimiento : AppCompatActivity() {
             finish()
         // Se utiliza para reclamar los cupones
         val manejoDeDatos = ManejoDeDatos(applicationContext, resources, packageName, assets)
-        val cuponesAdaptador = CuponesAdaptador(establecimiento.cupones, idCuenta, manejoDeDatos)
+        val cuponesAdaptador = CuponesAdaptador(
+            establecimiento.cupones,
+            idCuenta,
+            manejoDeDatos,
+            establecimiento.restriccionCupones
+        )
         binding.listaCupones.layoutManager = LinearLayoutManager(applicationContext)
         binding.listaCupones.adapter = cuponesAdaptador
 
