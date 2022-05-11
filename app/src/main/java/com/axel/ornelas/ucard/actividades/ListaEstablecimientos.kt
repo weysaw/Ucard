@@ -22,11 +22,11 @@ class ListaEstablecimientos : AppCompatActivity() {
         //Obtiene la categoria y la coloca en el titulo
         val categoria = intent.getStringExtra(PARAM1) ?: return finish()
         binding.tipoEstablecimiento.text = categoria
+        val idCuenta = intent.getIntExtra("idCuenta", -1)
 
         // Obtiene los datos del establacimiento por medio del manejador de datos
         val manejadorDeDatos = ManejoDeDatos(applicationContext, resources, packageName, assets)
-        establecimientos = manejadorDeDatos.obtenerEstablecimientos()
-
+        establecimientos = manejadorDeDatos.obtenerEstablecimientos(categoria)
         // Crea el adaptador y coloca la acción al presionarlo
         val establecimientosAdaptador = EstablecimientosAdaptador(establecimientos)
         establecimientosAdaptador.onClickListener = View.OnClickListener { v ->
@@ -34,7 +34,10 @@ class ListaEstablecimientos : AppCompatActivity() {
             val pos = binding.listaEstablecimientos.getChildAdapterPosition(v)
             val intent = Intent(this, MostrarInfoEstablecimiento::class.java)
             // Coloca el establecimiento presionado
-            intent.putExtra("establecimiento", establecimientos[pos])
+            with(intent) {
+                putExtra("establecimiento", establecimientos[pos])
+                putExtra("idCuenta", idCuenta)
+            }
             startActivity(intent)
         }
         // Coloca el layout y el adaptador
