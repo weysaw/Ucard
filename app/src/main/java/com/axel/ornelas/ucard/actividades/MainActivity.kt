@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.axel.ornelas.ucard.clases.Cuenta
+import com.axel.ornelas.ucard.clases.CuentaCliente
 import com.axel.ornelas.ucard.clases.ManejoDeDatos
 import com.axel.ornelas.ucard.databinding.ActivityMainBinding
+import java.lang.ClassCastException
 import java.lang.Exception
 
 
@@ -37,10 +39,20 @@ class MainActivity : AppCompatActivity() {
                 val cuenta = cuentas.first {
                     it.correo == correo.text.toString() && it.contrasena == contrasena.text.toString()
                 }
-                val intent = Intent(this@MainActivity, ListaCategorias::class.java)
-                intent.putExtra("nombreCuenta", cuenta.nombre)
-                intent.putExtra("idCuenta", cuenta.id)
-                startActivity(intent)
+                try {
+                    val cuentaCliente = cuenta as CuentaCliente
+                    val intentUsuario = Intent(this@MainActivity, ListaCategorias::class.java)
+                    with(intentUsuario) {
+                        putExtra("nombreCuenta", cuentaCliente.nombre)
+                        putExtra("idCuenta", cuentaCliente.id)
+                    }
+                    startActivity(intentUsuario)
+                } catch (e: ClassCastException) { // El error indica que no es una clase de cliente
+                    val intentEstablecimiento =
+                        Intent(this@MainActivity, MenuPrincipalEstablecimiento::class.java)
+                    intentEstablecimiento.putExtra("nombre", cuenta.nombre)
+                    startActivity(intentEstablecimiento)
+                }
             } catch (e: Exception) {
                 Toast.makeText(
                     applicationContext,
@@ -48,8 +60,6 @@ class MainActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
-
-
         }
 
     }
