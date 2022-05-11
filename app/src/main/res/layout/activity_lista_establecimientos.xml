@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.90"
+        android:layout_weight="0.85"
         android:orientation="horizontal">
 
         <TextView
@@ -20,12 +20,14 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="TextView"
-            android:textSize="24sp" />
+            android:textSize="34sp" />
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
             app:srcCompat="@drawable/logo1" />
     </LinearLayout>
@@ -34,5 +36,5 @@
         android:id="@+id/listaEstablecimientos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.10" />
+        android:layout_weight="0.15" />
 </LinearLayout>
