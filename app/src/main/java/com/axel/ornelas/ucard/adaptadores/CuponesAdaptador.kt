@@ -19,6 +19,7 @@ class CuponesAdaptador(
     private val cupones: ArrayList<Cupon>,
     idCuenta: Int,
     private val manejadorDeDatos: ManejoDeDatos,
+    private val restricciones: String
 ) : RecyclerView.Adapter<CuponesAdaptador.ViewHolder>() {
     //Tal vez se deba poner protected
     private lateinit var contexto: Context
@@ -52,7 +53,10 @@ class CuponesAdaptador(
             holder.boton.setOnClickListener {
                 val intent = Intent(contexto, MostrarCupon::class.java)
                 cuenta.cuponesReclamados += cupon
-                intent.putExtra("cupon", cupon)
+                with(intent) {
+                    putExtra("cupon", cupon)
+                    putExtra("restricciones", restricciones)
+                }
                 manejadorDeDatos.guardarCuentas(cuentas)
                 contexto.startActivity(intent)
                 with(holder.boton) {
