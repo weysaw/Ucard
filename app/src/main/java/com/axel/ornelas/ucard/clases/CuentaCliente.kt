@@ -8,6 +8,4 @@ class CuentaCliente(
     correo: String,
     contrasena: String,
     val cuponesReclamados: ArrayList<Cupon> = arrayListOf()
-) : Cuenta(id, nombre, correo, contrasena), Serializable {
-
-}
+) : Cuenta(id, nombre, correo, contrasena), Serializable
