@@ -11,6 +11,7 @@ class Establecimiento(
     val logo: Int,
     // Por el momento lo estoy pensando como un arreglo de direcciones pero puede cambiar
     val fotos: ArrayList<Int>,
+    val restriccionCupones: String,
 ): Serializable {
     val cupones: ArrayList<Cupon> = arrayListOf()
     private var cantCuponesCreados: Int = 0
