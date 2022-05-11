@@ -44,8 +44,8 @@ class ManejoDeDatos(
     /**
      * Obtiene los datos para los establecimientos y los devuelve
      */
-    fun obtenerEstablecimientos(): ArrayList<Establecimiento> {
-        val establecimientos: ArrayList<Establecimiento>
+    fun obtenerEstablecimientos(categoria: String): ArrayList<Establecimiento> {
+        var establecimientos: ArrayList<Establecimiento>
         return try {
             // Abre el archivo y lee los datos de las cuentas
             applicationContext.openFileInput(ESTABLECIMIENTOS).use {
@@ -56,12 +56,13 @@ class ManejoDeDatos(
             }
             // Verifica que el archivo no este vacio
             if (establecimientos.isEmpty())
-                guardarDatosDefectoEstablecimiento()
-            establecimientos
+                establecimientos = guardarDatosDefectoEstablecimiento()
+            establecimientos.filter { it.categoria == categoria } as ArrayList<Establecimiento>
         } catch (ex: Exception) {
             println("\n\nArchivo no encontrado\n\n")
             // Si no hay nada guarda datos por defecto
-            guardarDatosDefectoEstablecimiento()
+            guardarDatosDefectoEstablecimiento().filter { it.categoria == categoria }
+                    as ArrayList<Establecimiento>
         }
     }
 
@@ -74,7 +75,11 @@ class ManejoDeDatos(
         // Se crea los datos por defecto, esto se debe de cambiar con una llamada a una base de datos
         assets.open("cuentas.txt").bufferedReader().forEachLine {
             val datos = it.split("|")
-            cuentas += Cuenta(datos[0].toInt(), datos[1], datos[2], datos[3])
+            val tipoCuenta = (datos[4] == "cliente")
+            cuentas += if (tipoCuenta)
+                CuentaCliente(datos[0].toInt(), datos[1], datos[2], datos[3])
+            else
+                Cuenta(datos[0].toInt(), datos[1], datos[2], datos[3])
         }
         guardarCuentas(cuentas)
         return cuentas
@@ -88,15 +93,17 @@ class ManejoDeDatos(
 
         assets.open("establecimientos.txt").bufferedReader().forEachLine {
             val datos = it.split("|")
+            val idEstablecimiento = datos[0].toInt()
             val fotos = arrayListOf(
-                obtenerImagen(datos[0]),
-                obtenerImagen(datos[1])
+                obtenerImagen(datos[1]),
+                obtenerImagen(datos[2])
             )
-            val logo = obtenerImagen(datos[2])
-            // Nombre = 3, direccion = 4, categoria = 5
-            val establecimiento = Establecimiento(datos[3], datos[4], datos[5], logo, fotos)
-            val cantCupones = datos[6].toInt()
-            val pos = 7
+            val logo = obtenerImagen(datos[3])
+            // Nombre = 4, direccion = 5, categoria = 6
+            val establecimiento =
+                Establecimiento(idEstablecimiento, datos[4], datos[5], datos[6], logo, fotos)
+            val cantCupones = datos[7].toInt()
+            val pos = 8
             // Recorre la cantidad de cupones y coloca la descripcion de cada uno
             for (i in pos until pos + cantCupones) {
                 val texto = datos[i]
