@@ -7,7 +7,6 @@ import com.axel.ornelas.ucard.databinding.ActivityMostrarCuponBinding
 import com.google.zxing.WriterException
 import android.graphics.Point
 import android.os.Build
-import android.util.Log
 import androidmads.library.qrgenearator.QRGContents
 import androidmads.library.qrgenearator.QRGEncoder
 
@@ -19,6 +18,7 @@ class MostrarCupon : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMostrarCuponBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         val cupon = intent.getSerializableExtra("cupon") as Cupon
         val width: Int
         val height: Int
@@ -44,5 +44,8 @@ class MostrarCupon : AppCompatActivity() {
         } catch (e: WriterException) {
             println(e.toString())
         }
+        // Obtiene las restricciones de los cupones del establecimiento
+        val restricciones = intent.getStringExtra("restricciones") ?: return finish()
+        binding.restricciones.text = restricciones
     }
 }
