@@ -106,13 +106,24 @@ class ManejoDeDatos(
                 fotos += obtenerImagen(datos[i])
             }
             val logo = obtenerImagen(datos[posFinal + 1])
-            val nombre = datos[posFinal + 2] ; val direccion = datos[posFinal + 3]
+            val nombre = datos[posFinal + 2];
+            val direccion = datos[posFinal + 3]
             val categoria = datos[posFinal + 4]
-            val establecimiento =
-                Establecimiento(idEstablecimiento, nombre, direccion, categoria, logo, fotos)
             val cantCupones = datos[posFinal + 5].toInt()
             val pos = posFinal + 6
             posFinal = pos + cantCupones
+            //Reemplaza las comas por saltas de linea
+            val restriccionCupones = datos[posFinal].replace(',','\n')
+            val establecimiento =
+                Establecimiento(
+                    idEstablecimiento,
+                    nombre,
+                    direccion,
+                    categoria,
+                    logo,
+                    fotos,
+                    restriccionCupones
+                )
             // Recorre la cantidad de cupones y coloca la descripcion de cada uno
             for (i in pos until posFinal) {
                 val texto = datos[i]
