@@ -1,3 +1,5 @@
-1|Axel L Ornelas M|axel.ornelas|1234|cliente
-2|weysaw|weysaw|4321|cliente
-3|Restaurante Sen Aii|sen-aii|1324|establecimiento
+1|Axel L Ornelas M|axel.ornelas|axel|cliente
+2|Francisco Lazarin|francisco.lazarin|francisco|cliente
+3|Daniela Rodriguez|daniela.rodriguez24|daniela|cliente
+4|Melissa Goycolea|melissa.goycolea|melissa|cliente
+5|Restaurante Sen Aii|sen-aii|1324|establecimiento
