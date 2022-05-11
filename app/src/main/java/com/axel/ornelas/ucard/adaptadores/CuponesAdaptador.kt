@@ -10,13 +10,20 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.axel.ornelas.ucard.R
 import com.axel.ornelas.ucard.actividades.MostrarCupon
+import com.axel.ornelas.ucard.clases.CuentaCliente
 import com.axel.ornelas.ucard.clases.Cupon
+import com.axel.ornelas.ucard.clases.ManejoDeDatos
 import com.bumptech.glide.Glide
 
-class CuponesAdaptador(private val cupones: ArrayList<Cupon>) :
-    RecyclerView.Adapter<CuponesAdaptador.ViewHolder>() {
+class CuponesAdaptador(
+    private val cupones: ArrayList<Cupon>,
+    idCuenta: Int,
+    private val manejadorDeDatos: ManejoDeDatos,
+) : RecyclerView.Adapter<CuponesAdaptador.ViewHolder>() {
     //Tal vez se deba poner protected
     private lateinit var contexto: Context
+    private val cuentas = manejadorDeDatos.obtenerCuentas()
+    private val cuenta = cuentas.first { it.id == idCuenta } as CuentaCliente
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -32,15 +39,32 @@ class CuponesAdaptador(private val cupones: ArrayList<Cupon>) :
 
     //https://www.youtube.com/watch?v=eJEUb4djDgU
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val cupon = cupones[position]
         //Coloca la información del puntaje en los campos de texto
         Glide.with(contexto)
             .load(cupones[position].promocionImagen)
             .fitCenter()
             .into(holder.imagenCupon)
-        holder.boton.setOnClickListener {
-            val intent = Intent(contexto, MostrarCupon::class.java)
-            intent.putExtra("cupon", cupones[position])
-            contexto.startActivity(intent)
+        val existeCupon =
+            !cuenta.cuponesReclamados.any { it.id == cupon.id && it.idEstablecimiento == cupon.idEstablecimiento }
+        if (existeCupon) {
+            // Verifica que no muestre un cupon que ya tenga
+            holder.boton.setOnClickListener {
+                val intent = Intent(contexto, MostrarCupon::class.java)
+                cuenta.cuponesReclamados += cupon
+                intent.putExtra("cupon", cupon)
+                manejadorDeDatos.guardarCuentas(cuentas)
+                contexto.startActivity(intent)
+                with(holder.boton) {
+                    isEnabled = false
+                    text = "Cupón ya reclamado"
+                }
+            }
+        } else {
+            with(holder.boton) {
+                isEnabled = false
+                text = "Cupón ya reclamado"
+            }
         }
     }
 
